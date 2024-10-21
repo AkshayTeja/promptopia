@@ -1,0 +1,12 @@
+DESIGN FLOW
+
+Create app using npx create-next-app@latest ./ with required config
+Run npm install bcrypt mongodb mongoose next-auth 
+Delete app, public folders
+Create app, components, models, public, styles, utils folders and .env file
+You can use pre-made tailwind.config.js file and add it
+You can use pre-made globals.css file and add it inside styles folder
+And any assets used like images can be pasted in public folder
+Create page.jsx and layout.jsx in app folder and edit as required
+Create all skeleton components in components folder required
+Create Nav.jsx, add required elements
