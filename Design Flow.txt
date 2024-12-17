@@ -10,3 +10,7 @@ And any assets used like images can be pasted in public folder
 Create page.jsx and layout.jsx in app folder and edit as required
 Create all skeleton components in components folder required
 Create Nav.jsx, add required elements
+Edit Provider.jsx to create sessions
+Create api folder, inside that an auth folder, inside that a [...nextauth] folder and a route.js finally inside it
+Go to console.cloud.google.com and create API credentials
+Then create GOOGLE_ID & GOOGLE_CLIENT_SECRET env variables in .env file
