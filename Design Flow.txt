@@ -21,3 +21,5 @@ Update signIn function in route.js using databse.js
 Create User model in models as user.js
 Update route.js's signin and session functions using user.js model, then this completes user authenitcation
 Also update Nav.js suitably using useEffect and editing few things like session?.user etc
+Then change authorized redirect URI's on google cloud console
+Then go to route.js and add callbacks
