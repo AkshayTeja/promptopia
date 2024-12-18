@@ -17,3 +17,7 @@ Then create GOOGLE_ID & GOOGLE_CLIENT_SECRET env variables in .env file
 Modify route.js to include clientId and clientSecret
 Create database.js under utils to establish connection with mongoDB database
 Go to mongoDB Atlas and create cluster and copy mongoDB URI to .env file
+Update signIn function in route.js using databse.js
+Create User model in models as user.js
+Update route.js's signin and session functions using user.js model, then this completes user authenitcation
+Also update Nav.js suitably using useEffect and editing few things like session?.user etc

@@ -1,12 +1,13 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
+import User from '@models/user';
 import { connectToDB } from '@utils/database';
 import { connect } from 'mongoose';
 
 console.log({
     clientId: process.env.GOOGLE_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 })
 
 const handler = NextAuth({
@@ -14,27 +15,52 @@ const handler = NextAuth({
         GoogleProvider({
             clientId: process.env.GOOGLE_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            authorization: {
+                params: {
+                  prompt: "consent", // Force consent screen
+                  access_type: "offline" // Request refresh token
+                }
+              }
         })
     ],
-    async session({ session }){
-
-    },
-    async signIn({ profile }){
-        try
-        {
-            //Serverless route
-            await connectToDB();
-
-            //Check if a user already exists
-
-            //If not, create a new user and save it to the database
-
-            //Succesful sign in
-            return true;
-        }
-        catch(error)
-        {
-            return false;
+    callbacks: {
+        async session({ session }) {
+            try {
+                const sessionUser = await User.findOne({
+                    email: session.user.email
+                });
+        
+                if (sessionUser) {
+                    session.user.id = sessionUser._id.toString();
+                }
+        
+                return session;
+            } catch (error) {
+                console.error("Session error:", error);
+                return session;
+            }
+        },
+        async signIn({ profile }) {
+            try {
+                await connectToDB();
+        
+                const userExists = await User.findOne({
+                    email: profile.email
+                });
+        
+                if (!userExists) {
+                    await User.create({
+                        email: profile.email,
+                        username: profile.name.replace(" ", "").toLowerCase(),
+                        image: profile.picture
+                    });
+                }
+        
+                return true;
+            } catch (error) {
+                console.error("Sign-in error:", error);
+                return false;
+            }
         }
     }
 })

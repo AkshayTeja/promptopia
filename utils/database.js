@@ -1,30 +1,29 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-let isConnected = false; //Allows us to track the connection status
+let isConnected = false;
 
 export const connectToDB = async () => {
-    mongoose.set('strictQuery',true);
+  mongoose.set('strictQuery', true);
 
-    if(isConnected)
-    {
-        console.log('MongoDB is already connected');
-        return;
-    }
+  if(isConnected) {
+    console.log('MongoDB is already connected');
+    return;
+  }
 
-    try
-    {
-        //Try to establish connection
-        await mongoose.connect(ProcessingInstruction.env.MONGODB_URI,{
-            dbName: "share prompt",
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        })
-        isConnected=true;
-        console.log("MongoDB Connected")
-    }
-    catch(error)
-    {
-        console.log(error);
-    }
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000, // Increase timeout
+      connectTimeoutMS: 10000, // Increase connection timeout
+    });
 
+    isConnected = true;
+    console.log('MongoDB connected successfully');
+  } catch (error) {
+    console.error('Detailed MongoDB Connection Error:', {
+      message: error.message,
+      name: error.name,
+      stack: error.stack
+    });
+    throw error;
+  }
 }
