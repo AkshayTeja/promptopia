@@ -23,3 +23,8 @@ Update route.js's signin and session functions using user.js model, then this co
 Also update Nav.js suitably using useEffect and editing few things like session?.user etc
 Then change authorized redirect URI's on google cloud console
 Then go to route.js and add callbacks
+Then we create Create form functionality, so make a create-prompt folder and a page.jsx file inside it
+Then edit Form.jsx as required with components
+Then add createPrompt in page.jsx of create-prompt
+Then create API endpoint in new folder under api under prompt
+Then create prompt.js model
