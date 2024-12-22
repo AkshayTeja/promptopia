@@ -35,3 +35,6 @@ Then create profile folder and edit as required
 Under API, create route.js in users/[id]/posts
 Then edit Profile.jsx component
 Go to PromptCard and create Edit, Delete components at bottom
+Then to make handleUpdate and delete, create API end points under prompt/[id] as route.js
+Create update-prompt folder and edit page.jsx, similar to create-prompt's page.jsx
+Also edit handleEdit, handleDelete functionalities in profile page.jsx

@@ -48,7 +48,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
       <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
       <p className="font-inter text-sm blue_gradient cursor-pointer"
         onClick={() => handleTagClick && handleTagClick(post.tag)}>
-        {post.tag}
+        #{post.tag}
       </p>
 
       {session?.user.id === post.creator._id &&
