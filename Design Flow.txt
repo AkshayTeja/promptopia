@@ -38,3 +38,5 @@ Go to PromptCard and create Edit, Delete components at bottom
 Then to make handleUpdate and delete, create API end points under prompt/[id] as route.js
 Create update-prompt folder and edit page.jsx, similar to create-prompt's page.jsx
 Also edit handleEdit, handleDelete functionalities in profile page.jsx
+Then deploy on vercel, edit environment variables on vercel in settings, take from .env file
+Change to vercel's URL on google cloud and ensure 0.0.0.0/0 is present in mongodb at network access
