@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState, Suspense } from 'react'
 import { useSession } from 'next-auth/react';
-import { useRouter,useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Form from '@components/Form';
 
-const UpdatePrompt = () => {
+function UpdatePromptContent() {
   const router = useRouter();
-  const searchParams=useSearchParams();
-  const promptId=searchParams.get('id');
+  const searchParams = useSearchParams();
+  const promptId = searchParams.get('id');
 
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({
@@ -18,17 +18,16 @@ const UpdatePrompt = () => {
 
   useEffect(() => {
     const getPromptDetails = async () => {
-        const response = await fetch(`/api/prompt/${promptId}`)
-        const data= await response.json();
+      const response = await fetch(`/api/prompt/${promptId}`)
+      const data = await response.json();
 
-        setPost({
-            prompt: data.prompt,
-            tag: data.tag,
-        })
+      setPost({
+        prompt: data.prompt,
+        tag: data.tag,
+      })
     }
-    if(promptId)
-        getPromptDetails()
-  },[promptId])
+    if(promptId) getPromptDetails()
+  }, [promptId])
 
   const updatePrompt = async (e) => {
     e.preventDefault();
@@ -49,13 +48,9 @@ const UpdatePrompt = () => {
       });
 
       if (response.ok) {
-        // Add these lines for debugging
-        console.log('Response was successful');
         router.push('/');
-        // Force a reload/refresh of the page
         router.refresh();
       } else {
-        // Add error handling
         console.error('Submission failed:', await response.text());
       }
     } catch (error) {
@@ -74,8 +69,14 @@ const UpdatePrompt = () => {
       handleSubmit={updatePrompt}
     />
   );
+}
+
+const UpdatePrompt = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <UpdatePromptContent />
+    </Suspense>
+  );
 };
-
-
 
 export default UpdatePrompt;
