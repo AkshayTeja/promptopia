@@ -31,3 +31,7 @@ Then create prompt.js model and link as required
 Then modify Feed.jsx 
 Create API endpoint under prompt as route.js
 And edit PromptCard.js
+Then create profile folder and edit as required
+Under API, create route.js in users/[id]/posts
+Then edit Profile.jsx component
+Go to PromptCard and create Edit, Delete components at bottom
